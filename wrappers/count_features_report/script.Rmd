@@ -1,0 +1,54 @@
+---
+# Final report
+output:
+  html_document:
+    highlight: tango
+
+---
+
+```{r load-packages, include=FALSE}
+library(data.table)
+library(jsonlite)
+
+```
+
+
+```{r, include=FALSE}
+config_json = as.data.table(fromJSON(snakemake@params$config))
+
+```
+## Main report:
+`r paste0("* [Multi-sample main QC summary (MultiQC)](../",snakemake@input$all_sample_multiqc,") \\")`
+`r if(unique(config_json$cross_sample_correlation) == TRUE){paste0("* [Cross sample correlation report](../",snakemake@input$cross_sample_correlation, ") \\")}`
+`r if(unique(config_json$qc_fastq_screen_RNA) == TRUE){paste0("* [Fastq screen RNA QC report](../",snakemake@input$qc_fastq_screen_RNA, ") \\")} `
+`r if(unique(config_json$qc_biotypes_RNA) == TRUE){paste0("* [Feature count report](../",snakemake@input$qc_biotypes_RNA, ") \\")} `
+`r if(unique(config_json$qc_dupradar_RNA) == TRUE){paste0("* [All samples RNA-Seq metrics - Dupradar duprateExpBoxplot](../",snakemake@input$dupraxpbox, ") \\")} `
+`r if(unique(config_json$qc_dupradar_RNA) == TRUE){paste0("* [All samples RNA-Seq metrics - Dupradar expressionHist](../",snakemake@input$exphist, ") \\")} `
+`r if(unique(config_json$qc_dupradar_RNA) == TRUE){paste0("* [All samples RNA-Seq metrics - Dupradar duprateExpDens](../",snakemake@input$dupraexpden, ") \\")} `
+`r if(unique(config_json$qc_dupradar_RNA) == TRUE){paste0("* [All samples RNA-Seq metrics - Dupradar multimapPerGene](../",snakemake@input$multipergene, ") \\")} `
+`r if(unique(config_json$qc_dupradar_RNA) == TRUE){paste0("* [All samples RNA-Seq metrics - Dupradar readDist](../",snakemake@input$readdist, ") \\")} `
+`r if(unique(config_json$chip_extra_qc) == TRUE){paste0("* [All samples Phantompeakqualtools metrics (no duplicates)](../",snakemake@input$phantompeak, ") \\")} `
+`r if(unique(config_json$chip_extra_qc) == TRUE){paste0("* [All samples Phantompeakqualtools metrics (with duplicates)](../",snakemake@input$phantompeak_dups, ") \\")} `
+`r if(unique(config_json$chip_extra_qc) == TRUE){paste0("* [All samples correlation heatmap by Deeptools (no duplicates)](../",snakemake@input$corr_heatmap, ") \\")} `
+`r if(unique(config_json$chip_extra_qc) == TRUE){paste0("* [All samples correlation heatmap by Deeptools (with duplicates)](../",snakemake@input$corr_heatmap_dups, ") \\")} `
+`r if(unique(config_json$chip_extra_qc) == TRUE){paste0("* [All samples fingerprint plot by Deeptools (no duplicates)](../",snakemake@input$fingerprint, ") \\")} `
+`r if(unique(config_json$chip_extra_qc) == TRUE){paste0("* [All samples fingerprint plot by Deeptools (with duplicates)](../",snakemake@input$fingerprint_dups, ") \\")} `
+----------------------------------------------------------
+
+## Individual samples reports:
+```{r, results='asis', echo=FALSE}
+for (i in snakemake@params$sample_name){
+  cat('\n')
+  #cat(paste0(" * [Sample ", i, " report](",i,".final_sample_report.html)\n"))
+  cat(paste0(" * [Sample ", i, " report](./",i,"/single_sample_alignment_report.html)\n"))
+  cat('\n')
+}
+```
+
+
+
+
+
+---
+
+

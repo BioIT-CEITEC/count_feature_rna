@@ -1,0 +1,121 @@
+{
+  "workflow_description": {
+    "name":"count_feature_rna",
+    "version": 1.0,
+    "label":"Count Feature RNA",
+    "type":"count_feature_rna",
+    "inputs":[
+      "mapped/*",
+      "*/{sample}*fastq.gz"
+    ],
+    "outputs":[
+      "qc_reports/*",
+      "mapped/*.bam*"
+    ],
+    "report_index": "qc_reports/count_feature_report.html",
+    "reports":[
+      "qc_reports/*
+    ]
+  },
+  "general_params": [
+    "entity_name",
+    "sample_name"
+  ],
+  "requested_params": [
+    "is_paired",
+    "UMI",
+    "umi_usage",
+    "reference",
+    "lib_ROI",
+    "trim_adapters",
+    "strandness"
+  ],
+  "gui_params" : {
+    "primary": {
+      "lib_ROI": {
+        "label": "Regions of interest",
+        "type": "enum",
+        "default": "wgs",
+        "list": ##INCLUDE:reference_info/lib_ROI.json##
+      }
+    },
+    "detailed": {
+      "count_over": {
+        "label": "Count over",
+        "type": "enum",
+        "default": "exon",
+        "list": {
+          "exon": "Exon",
+          "gene": "Gene",
+          "transcript": "Transcript",
+          "mRNA": "mRNA",
+          "three_prime_utr": "Three prime UTR",
+          "five_prime_utr": "Five prime UTR"
+        }
+      },
+      "feature_count": {
+        "label": "Feature count",
+        "type": "bool",
+        "default": true
+      },
+      "RSEM": {
+        "label": "RSEM",
+        "type": "bool",
+        "default": false
+      },
+      "salmon": {
+        "label": "Salmon",
+        "type": "bool",
+        "default": false
+      },
+      "kallisto": {
+        "label": "Kallisto",
+        "type": "bool",
+        "default": false
+      },
+      "lib_type": {
+        "label": "Salmon library type",
+        "type": "string",
+        "default": "A",
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "salmon": true
+            }
+          }
+        }
+      },
+      "gcbias": {
+        "label": "Salmon GC bias",
+        "type": "bool",
+        "default": true,
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "salmon": true
+            }
+          }
+        }
+      },
+      "numGibbsSamples": {
+        "label": "Salmon number of Gibbs Samples",
+        "type": "string",
+        "default": "20",
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "salmon": true
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
