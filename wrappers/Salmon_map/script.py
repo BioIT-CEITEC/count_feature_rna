@@ -1,5 +1,5 @@
 ######################################
-# wrapper for rule: Salmon_fastq
+# wrapper for rule: Salmon_map
 ######################################
 import os
 import subprocess
@@ -9,7 +9,7 @@ shell.executable("/bin/bash")
 log_filename = str(snakemake.log)
 
 f = open(log_filename, 'a+')
-f.write("\n##\n## RULE: Salmon_fastq \n##\n")
+f.write("\n##\n## RULE: Salmon_map \n##\n")
 f.close()
 
 version = str(subprocess.Popen("conda list ", shell=True, stdout=subprocess.PIPE).communicate()[0], 'utf-8')

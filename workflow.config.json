@@ -73,7 +73,7 @@
         "type": "bool",
         "default": false
       },
-      "salmon_bam": {
+      "salmon_align": {
         "label": "Salmon align mode",
         "type": "bool",
         "default": true,
@@ -86,7 +86,7 @@
             }
           }
         }
-      },"salmon_fastq": {
+      },"salmon_map": {
         "label": "Salmon mapping mode",
         "type": "bool",
         "default": false,
@@ -123,7 +123,7 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "salmon_fastq": true
+              "salmon_map": true
             }
           }
         }
@@ -137,7 +137,7 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "salmon_fastq": true
+              "salmon_map": true
             }
           }
         }

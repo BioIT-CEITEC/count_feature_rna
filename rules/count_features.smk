@@ -36,21 +36,21 @@ def salmon_kallisto_input(wildcards):
         input['r2'] = os.path.join(preprocessed,"{sample}_R2.fastq.gz")
     return input
 
-rule Salmon_bam:
+rule Salmon_align:
     input:  bam = "mapped/{sample}.bam",
-            ref_transcriptome = expand("{ref_dir}/seq/{ref}.cds.fa",ref_dir=reference_directory,ref=config["reference"])[0],
+            cds = expand("{ref_dir}/seq/{ref}.cds.fa",ref_dir=reference_directory,ref=config["reference"])[0],
     output: sf = "qc_reports/{sample}/salmon/{sample}_aln/{sample}.salmon_aln.sf",
     log:    "logs/{sample}/salmon_map.log"
     threads: 5
     resources:  mem = 10
     params: prefix = "qc_reports/{sample}/salmon/{sample}_aln",
             lib_type = config["lib_type"],
-    conda:  "../wrappers/Salmon_bam/env.yaml"
-    script: "../wrappers/Salmon_bam/script.py"
+    conda:  "../wrappers/Salmon_align/env.yaml"
+    script: "../wrappers/Salmon_align/script.py"
 
-rule Salmon_fastq:
+rule Salmon_map:
     input:  unpack(salmon_kallisto_input),
-            index = expand("{ref_dir}/index/Salmon_fastq",ref_dir=reference_directory,ref=config["reference"])
+            index = expand("{ref_dir}/index/Salmon",ref_dir=reference_directory,ref=config["reference"])
     output: sf = "qc_reports/{sample}/salmon/{sample}_map/{sample}.salmon_map.sf",
     log:    "logs/{sample}/salmon_align.log"
     threads: 40
@@ -60,8 +60,8 @@ rule Salmon_fastq:
             gcbias = config["gcbias"],
             numGibbsSamples = config["numGibbsSamples"],
             paired = paired,
-    conda: "../wrappers/Salmon_fastq/env.yaml"
-    script: "../wrappers/Salmon_fastq/script.py"
+    conda: "../wrappers/Salmon_map/env.yaml"
+    script: "../wrappers/Salmon_map/script.py"
 
 rule Kallisto:
     input:  unpack(salmon_kallisto_input),
