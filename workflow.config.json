@@ -73,6 +73,33 @@
         "type": "bool",
         "default": false
       },
+      "salmon_bam": {
+        "label": "Salmon align mode",
+        "type": "bool",
+        "default": true,
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "salmon": true
+            }
+          }
+        }
+      },"salmon_fastq": {
+        "label": "Salmon mapping mode",
+        "type": "bool",
+        "default": false,
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "salmon": true
+            }
+          }
+        }
+      },
       "lib_type": {
         "label": "Salmon library type",
         "type": "string",
@@ -96,7 +123,7 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "salmon": true
+              "salmon_fastq": true
             }
           }
         }
@@ -110,7 +137,7 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "salmon": true
+              "salmon_fastq": true
             }
           }
         }
