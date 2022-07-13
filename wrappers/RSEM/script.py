@@ -27,12 +27,19 @@ if snakemake.params.paired == "PE" :
 else:
     extra_flags_rsem = ""
 
+# if snakemake.params.strandness == "fwd":
+#     extra_flags_rsem += " --forward-prob 1"
+# elif snakemake.params.strandness == "rev":
+#     extra_flags_rsem += " --forward-prob 0"
+# else:
+#     extra_flags_rsem += " --forward-prob 0.5"
+
 if snakemake.params.strandness == "fwd":
-    extra_flags_rsem += " --forward-prob 1"
+    extra_flags_rsem += " --strandedness forward"
 elif snakemake.params.strandness == "rev":
-    extra_flags_rsem += " --forward-prob 0"
+    extra_flags_rsem += " --strandedness reverse"
 else:
-    extra_flags_rsem += " --forward-prob 0.5"
+    extra_flags_rsem += " --strandedness none"
 
 command = "samtools view "+str(snakemake.input.transcriptome)+" 2> /dev/null | head -20 | wc -l"
 mapped_count = str(subprocess.Popen(command,shell=True,stdout=subprocess.PIPE).communicate()[0], 'utf-8')
@@ -41,8 +48,12 @@ with open(log_filename, 'at') as f:
     f.write("## COMMAND: " + command + "\n")
 
 if int(mapped_count) >= 20:
-    command = "rsem-calculate-expression --bam --estimate-rspd --calc-ci --seed 12345 -p "+str(snakemake.threads)+" --no-bam-output --ci-memory "+str(snakemake.resources.mem)+"000 "+extra_flags_rsem \
-                +" "+snakemake.input.transcriptome+" "+snakemake.input.rsem_index.replace(".idx.fa","")+" "+snakemake.output.rsem_out.replace(".genes.results","")+" >> "+log_filename+" 2>&1 "
+    # command = "rsem-calculate-expression --bam --estimate-rspd --calc-ci --seed 12345 -p "+str(snakemake.threads)+" --no-bam-output --ci-memory "+str(snakemake.resources.mem)+"000 "+extra_flags_rsem \
+    #             +" "+snakemake.input.transcriptome+" "+snakemake.input.rsem_index.replace(".idx.fa","")+" "+snakemake.output.rsem_out.replace(".genes.results","")+" >> "+log_filename+" 2>&1 "
+    command = "rsem-calculate-expression --alignments --estimate-rspd --calc-ci --seed 12345 -p " + str(snakemake.threads) + \
+              " --no-bam-output --ci-memory " + str(snakemake.resources.mem) + "000 " + extra_flags_rsem + \
+              " " + snakemake.input.transcriptome + " " + snakemake.input.rsem_index.replace(".idx.fa","") + \
+              " " + snakemake.output.rsem_out.replace(".genes.results", "") + " >> " + log_filename + " 2>&1 "
 
     f = open(log_filename, 'at')
     f.write("## COMMAND: "+command+"\n")

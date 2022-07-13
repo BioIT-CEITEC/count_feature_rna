@@ -18,7 +18,7 @@ def multiqc_report_input(wildcards):
 
 rule multiqc_report:
     input:  unpack(multiqc_report_input)
-    output: html="qc_reports/{sample}/multiqc.html"
+    output: html="qc_reports/{sample}/multiqc_features.html"
     log:    "logs/{sample}/multiqc.log"
     params: multiqc_config = workflow.basedir+"/wrappers/multiqc_report/multiqc_config.txt",
             multiqc_path = "qc_reports/{sample}/"
