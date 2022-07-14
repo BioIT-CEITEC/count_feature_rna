@@ -12,9 +12,9 @@
       "qc_reports/*",
       "logs/*"
     ],
-    "report_index": "qc_reports/count_feature_report.html",
+    "report_index": "qc_reports/all_samples/multiqc_features.html",
     "reports":[
-      "qc_reports/*
+      "qc_reports/all_samples/multiqc_features.html"
     ]
   },
   "general_params": [

@@ -80,11 +80,9 @@ wildcard_constraints:
 ##### Target rules #####
 
 rule all:
-    input:  "qc_reports/final_alignment_report.html"
+    input:  "qc_reports/all_samples/multiqc_features.html"
 
 ##### Modules #####
 
 include: "rules/count_features.smk"
-include: "rules/cross_sample_correlation.smk"
-include: "rules/chipseq_specific_qc.smk"
 include: "rules/sample_report.smk"
