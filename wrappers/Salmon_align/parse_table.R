@@ -9,7 +9,7 @@ run_all <- function(args){
 
   salmon.tbl<-as.data.table(read_json(info_file))
   salmon.tbl<-salmon.tbl[, Samples:=sample_name]
-  salmon.tbl<-unique(salmon.tbl[, .(Samples, Total=num_processed, mapped=num_mapped, unmapped=num_processed-num_mapped)])
+  salmon.tbl<-unique(salmon.tbl[, .(Samples, mapped=num_mapped, unmapped=num_processed-num_mapped)])
   fwrite(file=output,x=salmon.tbl,sep="\t")
 
 }

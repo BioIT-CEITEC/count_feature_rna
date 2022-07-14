@@ -8,8 +8,9 @@ def merge_salmon_aln_input(wildcards):
     return input
 
 rule merge_salmon_aln:
-    input:  unpack(merge_salmon_aln_input)
+    input:  tsv=unpack(merge_salmon_aln_input),
     output: tsv="qc_reports/all_samples/salmon_aln.tsv"
+    params: header=
     log:    "logs/all_samples/merge_salmon_aln.log"
     conda: "../wrappers/merge_salmon/env.yaml"
     script: "../wrappers/merge_salmon/script.py"
@@ -35,10 +36,10 @@ def multiqc_report_input_files(wildcards):
         input['RSEM'] = "qc_reports/{sample}/RSEM/{sample}.genes.results"
     if config["salmon_align"]:
         input['salmon_align'] = "qc_reports/{sample}/salmon/{sample}_aln/{sample}.salmon_aln.sf",
-        input['salmon_align_tab'] = "qc_reports/all_samples/salmon_aln.tsv"
+        input['salmon_align_tab'] = "qc_reports/{sample}/salmon/{sample}_aln/{sample}_aln.tsv"
     if config["salmon_map"]:
         input['salmon_map'] = "qc_reports/{sample}/salmon/{sample}_map/{sample}.salmon_map.sf",
-        input['salmon_map_tab'] = "qc_reports/all_samples/salmon_map.tsv"
+        input['salmon_map_tab'] = "qc_reports/{sample}/salmon/{sample}_map/{sample}_map.tsv"
     if config["kallisto"]:
         input['kallisto_h5'] = "qc_reports/{sample}/kallisto/{sample}.kallisto.h5",
         input['kallisto_tsv'] = "qc_reports/{sample}/kallisto/{sample}.kallisto.tsv"

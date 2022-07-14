@@ -36,7 +36,7 @@
         "label": "Regions of interest",
         "type": "enum",
         "default": "wgs",
-        "list":##INCLUDE: reference_info/lib_ROI.json##
+        "list": ##INCLUDE:reference_info/lib_ROI.json##
       },
       "feature_count": {
         "label": "Feature count",
