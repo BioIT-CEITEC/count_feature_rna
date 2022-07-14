@@ -37,22 +37,7 @@
         "label": "Regions of interest",
         "type": "enum",
         "default": "wgs",
-        "list": ##INCLUDE:reference_info/lib_ROI.json##
-      }
-    },
-    "detailed": {
-      "count_over": {
-        "label": "Count over",
-        "type": "enum",
-        "default": "exon",
-        "list": {
-          "exon": "Exon",
-          "gene": "Gene",
-          "transcript": "Transcript",
-          "mRNA": "mRNA",
-          "three_prime_utr": "Three prime UTR",
-          "five_prime_utr": "Five prime UTR"
-        }
+        "list":##INCLUDE: reference_info/lib_ROI.json##
       },
       "feature_count": {
         "label": "Feature count",
@@ -87,7 +72,8 @@
             }
           }
         }
-      },"salmon_map": {
+      },
+      "salmon_map": {
         "label": "Salmon mapping mode (fastq)",
         "type": "bool",
         "default": false,
@@ -99,6 +85,21 @@
               "salmon": true
             }
           }
+        }
+      }
+    },
+    "detailed": {
+      "count_over": {
+        "label": "Count over",
+        "type": "enum",
+        "default": "exon",
+        "list": {
+          "exon": "Exon",
+          "gene": "Gene",
+          "transcript": "Transcript",
+          "mRNA": "mRNA",
+          "three_prime_utr": "Three prime UTR",
+          "five_prime_utr": "Five prime UTR"
         }
       },
       "lib_type": {
@@ -124,7 +125,7 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "salmon_map": true
+              "salmon": true
             }
           }
         }
@@ -138,7 +139,7 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "salmon_map": true
+              "salmon": true
             }
           }
         }
