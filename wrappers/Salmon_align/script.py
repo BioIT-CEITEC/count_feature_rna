@@ -18,7 +18,7 @@ f.write("## CONDA: "+version+"\n")
 f.close()
 
 command = "salmon quant -p " + str(snakemake.threads) + \
-               " -t " + snakemake.cds + \
+               " -t " + snakemake.input.cds + \
                " -l " + snakemake.params.lib_type + \
                " -a " + snakemake.input.bam + \
                " -o " + snakemake.params.prefix + \
@@ -31,6 +31,18 @@ shell(command)
 
 command = "mv " + snakemake.params.prefix + "/quant.sf " + snakemake.output.sf + " >> "+log_filename+" 2>&1 "
 f = open(log_filename, 'at')
+f.write("## COMMAND: "+command+"\n")
+f.close()
+shell(command)
+
+parse_salmon = os.path.abspath(os.path.dirname(__file__))+ "/parse_table.R"
+
+command = "(time Rscript " + parse_salmon + " " + \
+          snakemake.params.info + " " + \
+          snakemake.params.sample_name + " " + \
+          snakemake.output.tsv + ") >> "+log_filename+" 2>&1"
+f = open(log_filename, 'at')
+f.write("## COMMAND: parsing results\n")
 f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)

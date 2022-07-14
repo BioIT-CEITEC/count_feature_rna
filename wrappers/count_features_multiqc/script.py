@@ -15,9 +15,9 @@ f = open(log_filename, 'at')
 f.write("## CONDA: "+version+"\n")
 f.close()
 
-multiqc_search_paths = "./qc_reports/*/feature_count/*" + " ./qc_reports/{sample}/RSEM/*" + " ./qc_reports/{sample}/salmon_bam/*" + " ./qc_reports/{sample}/salmon_fastq/*" + " ./qc_reports/{sample}/kallisto/*"
+multiqc_search_paths =
 
-command = "multiqc -f -n " + snakemake.output.html + " " + multiqc_search_paths + \
+command = "multiqc -f -n " + snakemake.output.html + " " + snakemake.input.paths + \
               " --cl_config \"{{read_count_multiplier: 0.001, read_count_prefix: 'K', read_count_desc: 'thousands' }}\" >> "+log_filename+" 2>&1"
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")

@@ -63,18 +63,18 @@
         "type": "bool",
         "default": false
       },
-      "salmon": {
-        "label": "Salmon",
-        "type": "bool",
-        "default": false
-      },
       "kallisto": {
         "label": "Kallisto",
         "type": "bool",
         "default": false
       },
+      "salmon": {
+        "label": "Salmon",
+        "type": "bool",
+        "default": false
+      },
       "salmon_align": {
-        "label": "Salmon align mode",
+        "label": "Salmon align mode (BAM)",
         "type": "bool",
         "default": true,
         "conditions": {
@@ -87,7 +87,7 @@
           }
         }
       },"salmon_map": {
-        "label": "Salmon mapping mode",
+        "label": "Salmon mapping mode (fastq)",
         "type": "bool",
         "default": false,
         "conditions": {
