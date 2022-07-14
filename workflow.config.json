@@ -1,6 +1,6 @@
 {
   "workflow_description": {
-    "name":"count_feature_rna",
+    "name":"count_feature_rna2",
     "version": 1.0,
     "label":"Count Feature RNA",
     "type":"count_feature_rna",
