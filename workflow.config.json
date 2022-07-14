@@ -3,7 +3,7 @@
     "name":"count_feature_rna",
     "version": 1.0,
     "label":"Count Feature RNA",
-    "type":"count_feature",
+    "type":"count_feature_rna",
     "inputs":[
       "mapped/*",
       "*/{sample}*fastq.gz"
