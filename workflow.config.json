@@ -10,7 +10,8 @@
     ],
     "outputs":[
       "qc_reports/*",
-      "mapped/*.bam*"
+      "mapped/*.bam*",
+      "logs/*"
     ],
     "report_index": "qc_reports/count_feature_report.html",
     "reports":[
