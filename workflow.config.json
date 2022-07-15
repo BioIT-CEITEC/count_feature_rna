@@ -26,18 +26,11 @@
     "UMI",
     "umi_usage",
     "reference",
-    "lib_ROI",
     "trim_adapters",
     "strandness"
   ],
   "gui_params" : {
     "primary": {
-      "lib_ROI": {
-        "label": "Regions of interest",
-        "type": "enum",
-        "default": "wgs",
-        "list": ##INCLUDE:reference_info/lib_ROI.json##
-      },
       "feature_count": {
         "label": "Feature count",
         "type": "bool",
