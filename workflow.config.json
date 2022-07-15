@@ -5,21 +5,16 @@
     "label":"Count feature",
     "type":"count_feature_rna",
     "inputs":[
-      "qc_reports/{sample}/raw_fastqc/*",
-      "qc_reports/{sample}/*/trim_stats*.log",
       "mapped/*",
       "*/{sample}*fastq.gz"
     ],
     "outputs":[
       "qc_reports/*",
-      "mapped/*.bam*"
+      "logs/*"
     ],
-    "report_index": "qc_reports/final_alignment_report.html",
+    "report_index": "qc_reports/all_samples/multiqc_features.html",
     "reports":[
-      "qc_reports/*.html",
-      "qc_reports/*.pdf",
-      "qc_reports/*.png",
-      "qc_reports/*.csv"
+      "qc_reports/*"
     ]
   },
   "general_params": [
@@ -42,21 +37,6 @@
         "type": "enum",
         "default": "wgs",
         "list": ##INCLUDE:reference_info/lib_ROI.json##
-      }
-    },
-    "detailed": {
-      "count_over": {
-        "label": "Count over",
-        "type": "enum",
-        "default": "exon",
-        "list": {
-          "exon": "Exon",
-          "gene": "Gene",
-          "transcript": "Transcript",
-          "mRNA": "mRNA",
-          "three_prime_utr": "Three prime UTR",
-          "five_prime_utr": "Five prime UTR"
-        }
       },
       "feature_count": {
         "label": "Feature count",
@@ -73,84 +53,53 @@
         "type": "bool",
         "default": false
       },
-      "kallisto": {
-        "label": "Kallisto",
+      "salmon_align": {
+        "label": "Salmon alignment mode (BAM)",
         "type": "bool",
-        "default": false
-      },
-      "qc_samtools": {
-        "label": "QC samtools",
-        "type": "bool",
-        "default": true
-      },
-      "qc_qualimap_DNA": {
-        "label": "QC qualimap DNA",
-        "type": "bool",
-        "default": false
-      },
-      "qc_picard_DNA": {
-        "label": "QC picard DNA",
-        "type": "bool",
-        "default": false
-      },
-      "cross_sample_correlation": {
-        "label": "Cross sample correlation",
-        "type": "bool",
-        "default": false
-      },
-      "qc_dupradar_RNA": {
-        "label": "QC dupradar RNA",
-        "type": "bool",
-        "default": true
-      },
-      "qc_qualimap_RNA": {
-        "label": "QC qualimap RNA",
-        "type": "bool",
-        "default": true
-      },
-      "qc_picard_RNA": {
-        "label": "QC picard RNA",
-        "type": "bool",
-        "default": true
-      },
-      "qc_biotypes_RNA": {
-        "label": "QC biotypes RNA",
-        "type": "bool",
-        "default": true
-      },
-      "qc_fastq_screen_RNA": {
-        "label": "QC fastq screen RNA",
-        "type": "bool",
-        "default": true
-      },
-      "qc_RSeQC_RNA": {
-        "label": "QC RSeQC RNA",
-        "type": "bool",
-        "default": true
-      },
-      "biobloom": {
-        "label": "Biobloom tools",
-        "type": "bool",
-        "default": false
-      },
-      "max_mapped_reads_to_run_biobloom": {
-        "label": "Biobloom - max mapped ratio",
-        "type": "int",
-        "default": 100,
+        "default": true,
         "conditions": {
           "relevance": {
             "operand": "equal",
             "negation": false,
             "values": {
-              "biobloom": true
+              "salmon": true
             }
           }
         }
       },
-      "chip_extra_qc": {
-        "label": "ChIP-seq additional QC",
+      "salmon_map": {
+        "label": "Salmon mapping mode (fastq)",
+        "type": "bool",
+        "default": false,
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "salmon": true
+            }
+          }
+        }
+      },
+      "kallisto": {
+        "label": "Kallisto",
         "type": "bool",
         "default": false
+      }
+    },
+    "detailed": {
+      "count_over": {
+        "label": "Count over",
+        "type": "enum",
+        "default": "exon",
+        "list": {
+          "exon": "Exon",
+          "gene": "Gene",
+          "transcript": "Transcript",
+          "mRNA": "mRNA",
+          "three_prime_utr": "Three prime UTR",
+          "five_prime_utr": "Five prime UTR"
+        }
       },
       "lib_type": {
         "label": "Salmon library type",
