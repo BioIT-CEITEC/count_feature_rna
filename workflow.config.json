@@ -47,7 +47,7 @@
         "default": false
       },
       "salmon_align": {
-        "label": "Salmon alignment mode (BAM)",
+        "label": "Salmon quantification BAM-based",
         "type": "bool",
         "default": true,
         "conditions": {
@@ -61,7 +61,7 @@
         }
       },
       "salmon_map": {
-        "label": "Salmon mapping mode (fastq)",
+        "label": "Salmon quantification fastq-based",
         "type": "bool",
         "default": false,
         "conditions": {
