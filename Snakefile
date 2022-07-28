@@ -97,4 +97,3 @@ rule all:
 ##### Modules #####
 
 include: "rules/count_features.smk"
-include: "rules/sample_report.smk"
