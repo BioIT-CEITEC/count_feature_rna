@@ -78,16 +78,18 @@ reference_directory = os.path.join(GLOBAL_REF_PATH,config["organism"],config["re
 sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
 
 if not config["is_paired"]:
-    read_pair_tags = [""]
+    read_pair_tags = ["SE"]
+    pair_tag = [""]
     paired = "SE"
 else:
     read_pair_tags = ["_R1","_R2"]
+    pair_tag = ["_R1","_R2"]
     paired = "PE"
 
 wildcard_constraints:
-     sample = "|".join(sample_tab.sample_name) + "|all_samples",
-     lib_name="[^\.\/]+",
-     read_pair_tag = "(_R.)?"
+    sample = "|".join(sample_tab.sample_name),
+    read_pair_tag = "R1|R2|SE",
+    pair_tags = "|".join(pair_tag),
 
 ##### Target rules #####
 

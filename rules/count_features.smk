@@ -1,22 +1,22 @@
 def multiqc_report_input_files(wildcards):
     input = {}
     if config["feature_count"]:
-        input['feature_count'] = expand("qc_reports/{sample}/feature_count/{sample}.feature_count.tsv", sample=sample_tab.sample_name)
+        input["feature_count"] = expand("qc_reports/{sample}/feature_count/{sample}.feature_count.tsv", sample = sample_tab.sample_name)
     if config["RSEM"]:
-        input['RSEM'] = expand("qc_reports/{sample}/RSEM/{sample}.genes.results", sample=sample_tab.sample_name)
+        input["RSEM"] = expand("qc_reports/{sample}/RSEM/{sample}.genes.results", sample = sample_tab.sample_name)
     if config["salmon_align"]:
-        input['salmon_align'] = expand("qc_reports/{sample}/salmon/{sample}_aln/{sample}.salmon_aln.sf", sample=sample_tab.sample_name),
-        input['salmon_align_tab'] = expand("qc_reports/{sample}/salmon/{sample}_aln/{sample}_aln.tsv", sample=sample_tab.sample_name)
+        input["salmon_align"] = expand("qc_reports/{sample}/salmon/{sample}_aln/{sample}.salmon_aln.sf", sample = sample_tab.sample_name)
+        input["salmon_align_tab"] = expand("qc_reports/{sample}/salmon/{sample}_aln/{sample}_aln.tsv", sample = sample_tab.sample_name)
     if config["salmon_map"]:
-        input['salmon_map'] = expand("qc_reports/{sample}/salmon/{sample}_map/{sample}.salmon_map.sf", sample=sample_tab.sample_name),
-        input['salmon_map_tab'] = expand("qc_reports/{sample}/salmon/{sample}_map/{sample}_map.tsv", sample=sample_tab.sample_name)
+        input["salmon_map"] = expand("qc_reports/{sample}/salmon/{sample}_map/{sample}.salmon_map.sf", sample = sample_tab.sample_name)
+        input["salmon_map_tab"] = expand("qc_reports/{sample}/salmon/{sample}_map/{sample}_map.tsv", sample = sample_tab.sample_name)
     if config["kallisto"]:
-        input['kallisto_h5'] = expand("qc_reports/{sample}/kallisto/{sample}.kallisto.h5", sample=sample_tab.sample_name),
-        input['kallisto_tsv'] = expand("qc_reports/{sample}/kallisto/{sample}.kallisto.tsv", sample=sample_tab.sample_name)
+        input["kallisto_h5"] = expand("qc_reports/{sample}/kallisto/{sample}.kallisto.h5", sample = sample_tab.sample_name)
+        input["kallisto_tsv"] = expand("qc_reports/{sample}/kallisto/{sample}.kallisto.tsv", sample = sample_tab.sample_name)
     return input
 
 rule multiqc_report:
-    input:  multiqc_report_input_files,
+    input:  unpack(multiqc_report_input_files),
     output: html="qc_reports/all_samples/multiqc_features.html"
     log:    "logs/all_samples/multiqc_features.log"
     params: multiqc_config = workflow.basedir+"/wrappers/multiqc_report/multiqc_config.txt",
@@ -63,7 +63,7 @@ def salmon_kallisto_input(wildcards):
     return input
 
 rule Salmon_align:
-    input:  bam = "mapped/{sample}.bam",
+    input:  bam = "mapped/transcriptome/{sample}.not_markDups.transcriptome.bam",
             cds = expand("{ref_dir}/seq/{ref}.cds.fa",ref_dir=reference_directory,ref=config["reference"])[0],
     output: sf = "qc_reports/{sample}/salmon/{sample}_aln/{sample}.salmon_aln.sf",
             tsv= "qc_reports/{sample}/salmon/{sample}_aln/{sample}_aln.tsv",
