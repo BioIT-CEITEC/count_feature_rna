@@ -67,7 +67,7 @@ rule Salmon_align:
             cds = expand("{ref_dir}/seq/{ref}.cds.fa",ref_dir=reference_directory,ref=config["reference"])[0],
     output: sf = "qc_reports/{sample}/salmon/{sample}_aln/{sample}.salmon_aln.sf",
             tsv= "qc_reports/{sample}/salmon/{sample}_aln/{sample}_aln.tsv",
-    log:    "logs/{sample}/salmon_align.log"
+    log:    "logs/{sample}/salmon_aln.log"
     threads: 5
     resources:  mem = 10
     params: prefix = "qc_reports/{sample}/salmon/{sample}_aln",
