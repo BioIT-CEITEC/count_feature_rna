@@ -19,7 +19,7 @@ rule multiqc_report:
     input:  unpack(multiqc_report_input_files),
     output: html="qc_reports/all_samples/multiqc_features.html"
     log:    "logs/all_samples/multiqc_features.log"
-    params: multiqc_config = workflow.basedir+"/wrappers/multiqc_report/multiqc_config.txt",
+    params: multiqc_config = workflow.basedir+"/wrappers/count_features_multiqc/multiqc_config.txt",
             multiqc_path = "qc_reports/all_samples/"
     conda: "../wrappers/count_features_multiqc/env.yaml"
     script: "../wrappers/count_features_multiqc/script.py"

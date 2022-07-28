@@ -1,6 +1,7 @@
 ######################################
 # wrapper for rule: count_features_multiqc
 ######################################
+import os.path
 import subprocess
 from snakemake.shell import shell
 shell.executable("/bin/bash")
@@ -15,10 +16,10 @@ f = open(log_filename, 'at')
 f.write("## CONDA: "+version+"\n")
 f.close()
 
-multiqc_search_paths =
+multiqc_search_paths = " ".join([os.path.dirname(i) for i in snakemake.input])
 
-command = "multiqc -f -n " + snakemake.output.html + " " + snakemake.input.paths + \
-              " --cl_config \"{{read_count_multiplier: 0.001, read_count_prefix: 'K', read_count_desc: 'thousands' }}\" >> "+log_filename+" 2>&1"
+command = "multiqc -f -n " + snakemake.output.html + " " + multiqc_search_paths + \
+              " --config " + snakemake.params.multiqc_config + " >> "+log_filename+" 2>&1"
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
