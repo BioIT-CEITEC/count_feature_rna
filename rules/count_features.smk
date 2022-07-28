@@ -67,13 +67,13 @@ rule Salmon_align:
             cds = expand("{ref_dir}/seq/{ref}.cds.fa",ref_dir=reference_directory,ref=config["reference"])[0],
     output: sf = "qc_reports/{sample}/salmon/{sample}_aln/{sample}.salmon_aln.sf",
             tsv= "qc_reports/{sample}/salmon/{sample}_aln/{sample}_aln.tsv",
-    log:    "logs/{sample}/salmon_map.log"
+    log:    "logs/{sample}/salmon_align.log"
     threads: 5
     resources:  mem = 10
     params: prefix = "qc_reports/{sample}/salmon/{sample}_aln",
             lib_type = config["lib_type"],
-            sample_name= "{sample}_map",
-            info="qc_reports/{sample}/salmon/{sample}_map/aux_info/meta_info.json",
+            sample_name= "{sample}_aln",
+            info="qc_reports/{sample}/salmon/{sample}_aln/aux_info/meta_info.json",
     conda:  "../wrappers/Salmon_align/env.yaml"
     script: "../wrappers/Salmon_align/script.py"
 
@@ -82,7 +82,7 @@ rule Salmon_map:
             index = expand("{ref_dir}/index/Salmon",ref_dir=reference_directory,ref=config["reference"])[0],
     output: sf = "qc_reports/{sample}/salmon/{sample}_map/{sample}.salmon_map.sf",
             tsv = "qc_reports/{sample}/salmon/{sample}_map/{sample}_map.tsv",
-    log:    "logs/{sample}/salmon_align.log"
+    log:    "logs/{sample}/salmon_map.log"
     threads: 40
     resources:  mem = 34
     params: prefix = "qc_reports/{sample}/salmon/{sample}_map",
