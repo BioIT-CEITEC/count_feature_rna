@@ -14,35 +14,50 @@ qualimap_config:
        - 10
        - 100
        - 500
-
-custom_content:
+custom_data:
   salmon_aln:
-    file_format: "tsv"
-    section_name: "Salmon"
+    format: "tsv"
+    parent_id: "salmon/extra"
+    parent_name: "Salmon additional plots"
+    section_name: "Salmon alignment"
     description: "Additional Salmon plot"
     plot_type: "bargraph"
-    cats = OrderedDict()
-    cats['mapped'] = {
-        'name': 'Mapped Reads',
-        'color': '#8bbc21'
-    }
-    cats['unmapped'] = {
-        'name': 'Unmapped Reads',
-        'color': '#f7a35c'
-    }
+    categories:
+      mapped:
+        name: "Mapped"
+        color: "#437bb1"
+      unmapped:
+        name: "Unmapped"
+        color: "#b1084c"
     pconfig:
       id: "salmon_aln_plot"
       title: "Salmon: alignment Scores (alignment mode)"
-      cpswitch_counts_label: "Counts"
-      cpswitch_percent_label: "Percentages"
-      xlab: "# Reads"
-
+      ylab: "# Reads"
+  salmon_map:
+    format: "tsv"
+    parent_id: "salmon/extra"
+    parent_name: "Salmon additional plots"
+    section_name: "Salmon mapping"
+    description: "Additional Salmon plot"
+    plot_type: "bargraph"
+    categories:
+      mapped:
+        name: "Mapped"
+        color: "#437bb1"
+      unmapped:
+        name: "Unmapped"
+        color: "#b1084c"
+    pconfig:
+      id: "salmon_map_plot"
+      title: "Salmon: alignment Scores (mapping mode)"
+      ylab: "# Reads"
 sp:
    phantompeakqualtools/out:
       fn: '*.phantom_peak_calling_stats.tsv'
    jellyfish:
       fn: '*.histo'
    salmon_aln:
-        fn: '*salmon_aln.tsv'
+        fn: '*_aln.tsv'
    salmon_map:
-        fn: '*salmon_map.tsv'
+        fn: '*_map.tsv'
+
