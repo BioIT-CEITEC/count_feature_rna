@@ -24,13 +24,29 @@
   "requested_params": [
     "is_paired",
     "UMI",
+    "mark_duplicates",
+    "remove_duplicates",
     "umi_usage",
     "reference",
     "trim_adapters",
     "strandness"
   ],
   "gui_params" : {
-    "primary": {
+    "primary": {},
+    "detailed": {
+      "count_over": {
+        "label": "Count over",
+        "type": "enum",
+        "default": "exon",
+        "list": {
+          "exon": "Exon",
+          "gene": "Gene",
+          "transcript": "Transcript",
+          "mRNA": "mRNA",
+          "three_prime_utr": "Three prime UTR",
+          "five_prime_utr": "Five prime UTR"
+        }
+      },
       "feature_count": {
         "label": "Feature count",
         "type": "bool",
@@ -78,21 +94,6 @@
         "label": "Kallisto",
         "type": "bool",
         "default": false
-      }
-    },
-    "detailed": {
-      "count_over": {
-        "label": "Count over",
-        "type": "enum",
-        "default": "exon",
-        "list": {
-          "exon": "Exon",
-          "gene": "Gene",
-          "transcript": "Transcript",
-          "mRNA": "mRNA",
-          "three_prime_utr": "Three prime UTR",
-          "five_prime_utr": "Five prime UTR"
-        }
       },
       "lib_type": {
         "label": "Salmon library type",

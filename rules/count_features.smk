@@ -109,3 +109,26 @@ rule Kallisto:
     conda: "../wrappers/Kallisto/env.yaml"
     script: "../wrappers/Kallisto/script.py"
 
+def mark_duplicates_input(wildcards):
+    input = {}
+    if config["RSEM"] or config["salmon_align"]:
+        input["transcriptome_bam"] = "mapped/transcriptome/{sample}.not_markDups.transcriptome.bam"
+    return input
+
+rule mark_duplicates:
+    input:  unpack(mark_duplicates_input)
+    output: bam = "mapped/transcriptome/{sample}.bam",
+    log:    "logs/{sample}/mark_duplicates.log"
+    threads: 8
+    resources:  mem = 15
+    params: mtx = "qc_reports/{sample}/MarkDuplicates/{sample}.markDups_metrics.txt",
+            mark_duplicates = config["mark_duplicates"],
+            rmDup = config["remove_duplicates"], # allow possibility for rm duplicates true
+            UMI = config["UMI"],
+            umi_usage = config["umi_usage"],
+            keep_not_markDups_bam = config["keep_not_markDups_bam"],
+            temp_bam = "mapped/transcriptome/{sample}.sorted.bam",
+            ddup_bam = "mapped/transcriptome/{sample}.ddup.bam",
+            paired = config["is_paired"],
+    conda: "../wrappers/mark_duplicates/env.yaml"
+    script: "../wrappers/mark_duplicates/script.py"
