@@ -40,7 +40,7 @@ rule feature_count:
 
 rule RSEM:
     input:  bam = "mapped/{sample}.bam",
-            transcriptome = "mapped/transcriptome/{sample}.not_markDups.transcriptome.bam",
+            transcriptome = "mapped/transcriptome/{sample}.transcriptome.bam",
             rsem_index = expand("{ref_dir}/index/RSEM/{ref}.idx.fa",ref_dir=reference_directory,ref=config["reference"])[0],
     output: rsem_out = "qc_reports/{sample}/RSEM/{sample}.genes.results"
     log:    "logs/{sample}/RSEM.log"
@@ -63,7 +63,7 @@ def salmon_kallisto_input(wildcards):
     return input
 
 rule Salmon_align:
-    input:  bam = "mapped/transcriptome/{sample}.not_markDups.transcriptome.bam",
+    input:  bam = "mapped/transcriptome/{sample}.transcriptome.bam",
             cds = expand("{ref_dir}/seq/{ref}.cds.fa",ref_dir=reference_directory,ref=config["reference"])[0],
     output: sf = "qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.sf",
             tsv= "qc_reports/{sample}/salmon_aln/{sample}_aln.tsv",
@@ -117,18 +117,16 @@ def mark_duplicates_input(wildcards):
 
 rule mark_duplicates:
     input:  unpack(mark_duplicates_input)
-    output: bam = "mapped/transcriptome/{sample}.bam",
+    output: bam = "mapped/transcriptome/{sample}.transcriptome.bam",
     log:    "logs/{sample}/mark_duplicates.log"
     threads: 8
     resources:  mem = 15
-    params: mtx = "qc_reports/{sample}/MarkDuplicates/{sample}.markDups_metrics.txt",
+    params: mtx = "qc_reports/{sample}/MarkDuplicates/{sample}.transcriptome.markDups_metrics.txt",
             mark_duplicates = config["mark_duplicates"],
             rmDup = config["remove_duplicates"], # allow possibility for rm duplicates true
             UMI = config["UMI"],
             umi_usage = config["umi_usage"],
             keep_not_markDups_bam = config["keep_not_markDups_bam"],
-            temp_bam = "mapped/transcriptome/{sample}.sorted.bam",
-            ddup_bam = "mapped/transcriptome/{sample}.ddup.bam",
             paired = config["is_paired"],
     conda: "../wrappers/mark_duplicates/env.yaml"
     script: "../wrappers/mark_duplicates/script.py"
