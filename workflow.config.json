@@ -34,6 +34,11 @@
   "gui_params" : {
     "primary": {},
     "detailed": {
+      "feature_count": {
+        "label": "Feature count",
+        "type": "bool",
+        "default": true
+      },
       "count_over": {
         "label": "Count over",
         "type": "enum",
@@ -45,12 +50,16 @@
           "mRNA": "mRNA",
           "three_prime_utr": "Three prime UTR",
           "five_prime_utr": "Five prime UTR"
+        },
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "feature_count": true
+            }
+          }
         }
-      },
-      "feature_count": {
-        "label": "Feature count",
-        "type": "bool",
-        "default": true
       },
       "RSEM": {
         "label": "RSEM",
