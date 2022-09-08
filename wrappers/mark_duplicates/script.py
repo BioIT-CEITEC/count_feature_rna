@@ -33,7 +33,7 @@ header_sam = snakemake.input.transcriptome_bam.replace("not_markDups.transcripto
 ddup_txt = snakemake.input.transcriptome_bam.replace("not_markDups.transcriptome.bam","ddup.txt")
 ddup_sam = snakemake.input.transcriptome_bam.replace("not_markDups.transcriptome.bam","ddup.sam")
 
-if snakemake.params.mark_duplicates == True:
+if snakemake.params.UMI != "no_umi":
     os.makedirs(os.path.dirname(snakemake.params.mtx), exist_ok=True)
 
     command = "samtools sort -@" + str(snakemake.threads) + " -o " + sorted_bam + " " + snakemake.input.transcriptome_bam
@@ -48,33 +48,14 @@ if snakemake.params.mark_duplicates == True:
     f.close()
     shell(command)
 
-    if snakemake.params.UMI == "no_umi" or snakemake.params.umi_usage == "no":
-
-        command = "export LD_BIND_NOW=1"
-        f = open(log_filename, 'at')
-        f.write("## COMMAND: " + command + "\n")
-        f.close()
-        shell(command)
-
-        command = "picard MarkDuplicates INPUT=" + sorted_bam + " OUTPUT=" + ddup_bam + \
-                  " METRICS_FILE=" + snakemake.params.mtx + " REMOVE_DUPLICATES=" + str(snakemake.params.rmDup) + \
-                  " ASSUME_SORTED=true PROGRAM_RECORD_ID=null VALIDATION_STRINGENCY=LENIENT" + \
-                  " -Xmx" + str(snakemake.resources.mem) + "g 2>> " + log_filename + " "
-        f = open(log_filename, 'at')
-        f.write("## COMMAND: " + command + "\n")
-        f.close()
-        shell(command)
-
-    else:
-
-        command = "umi_tools dedup -I " + sorted_bam + " -S " + ddup_bam + \
+    command = "umi_tools dedup -I " + sorted_bam + " -S " + ddup_bam + \
                   " --log " + snakemake.params.mtx + extra + \
                   " --extract-umi-method=read_id --umi-separator='_' --method=directional --edit-distance-threshold=0" + \
                   " --spliced-is-unique --multimapping-detection-method=NH"
-        f = open(log_filename, 'at')
-        f.write("## COMMAND: "+command+"\n")
-        f.close()
-        shell(command)
+    f = open(log_filename, 'at')
+    f.write("## COMMAND: "+command+"\n")
+    f.close()
+    shell(command)
 
     command = "rm " + sorted_bam + "*"
     f = open(log_filename, 'at')
@@ -116,18 +97,17 @@ if snakemake.params.mark_duplicates == True:
     f.close()
     shell(command)
 
-    if snakemake.params.keep_not_markDups_bam == False:
-        command = "rm " + snakemake.input.transcriptome_bam
-        f = open(log_filename, 'at')
-        f.write("## COMMAND: " + command + "\n")
-        f.close()
-        shell(command)
+    command = "rm " + snakemake.input.transcriptome_bam
+    f = open(log_filename, 'at')
+    f.write("## COMMAND: " + command + "\n")
+    f.close()
+    shell(command)
 
 else:
 
     command = "mv -T " + snakemake.input.transcriptome_bam + " " + snakemake.output.bam
     f = open(log_filename, 'at')
-    f.write("## No markduplicate was requested" + "\n")
+    f.write("## No deduplication was requested" + "\n")
     f.write("## COMMAND: " + command + "\n")
     f.close()
     shell(command)

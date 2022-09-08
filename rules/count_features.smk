@@ -122,8 +122,6 @@ rule mark_duplicates:
     threads: 8
     resources:  mem = 15
     params: mtx = "qc_reports/{sample}/MarkDuplicates/{sample}.transcriptome.markDups_metrics.txt",
-            mark_duplicates = config["mark_duplicates"],
-            rmDup = config["remove_duplicates"], # allow possibility for rm duplicates true
             UMI = config["UMI"],
             umi_usage = config["umi_usage"],
             keep_not_markDups_bam = config["keep_not_markDups_bam"],
