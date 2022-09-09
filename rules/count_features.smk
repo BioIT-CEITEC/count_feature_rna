@@ -123,8 +123,6 @@ rule mark_duplicates:
     resources:  mem = 15
     params: mtx = "qc_reports/{sample}/MarkDuplicates/{sample}.transcriptome.markDups_metrics.txt",
             UMI = config["UMI"],
-            umi_usage = config["umi_usage"],
-            keep_not_markDups_bam = config["keep_not_markDups_bam"],
             paired = config["is_paired"],
     conda: "../wrappers/mark_duplicates/env.yaml"
     script: "../wrappers/mark_duplicates/script.py"
