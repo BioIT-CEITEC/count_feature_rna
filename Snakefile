@@ -33,9 +33,6 @@ if not "RSEM" in config:
 if not "kallisto" in config:
     config["kallisto"] = False
 
-if not "salmon" in config:
-    config["salmon"] = False
-
 if not "salmon_map" in config:
     config["salmon_map"] = False
 

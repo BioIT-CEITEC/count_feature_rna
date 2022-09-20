@@ -70,30 +70,12 @@
       "salmon_align": {
         "label": "Salmon quantification BAM-based",
         "type": "bool",
-        "default": false,
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "salmon": true
-            }
-          }
-        }
+        "default": false
       },
       "salmon_map": {
         "label": "Salmon quantification fastq-based",
         "type": "bool",
-        "default": false,
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "salmon": true
-            }
-          }
-        }
+        "default": false
       },
       "kallisto": {
         "label": "Kallisto",
@@ -109,7 +91,8 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "salmon": true
+              "salmon_align": true,
+              "salmon_map": true
             }
           }
         }
@@ -123,7 +106,7 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "salmon": true
+              "salmon_map": true
             }
           }
         }
@@ -137,7 +120,7 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "salmon": true
+              "salmon_map": true
             }
           }
         }
