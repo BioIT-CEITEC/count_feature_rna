@@ -14,7 +14,7 @@ os.makedirs(GLOBAL_TMPD_PATH, exist_ok=True)
 # DNA parameteres processing
 #
 if not "lib_ROI" in config:
-    config["lib_ROI"] = "wgs"
+    config["lib_ROI"] = "rna"
 
 # RNA parameteres processing
 #
@@ -50,14 +50,6 @@ if not "fragment_length" in config:
 if not "summary_correlation_method" in config:
     config["summary_correlation_method"] = "spearman"
 
-# Reference processing
-#
-if config["lib_ROI"] != "wgs":
-    # setting reference from lib_ROI
-    f = open(os.path.join(GLOBAL_REF_PATH,"reference_info","lib_ROI.json"))
-    lib_ROI_dict = json.load(f)
-    f.close()
-    config["reference"] = [ref_name for ref_name in lib_ROI_dict.keys() if isinstance(lib_ROI_dict[ref_name],dict) and config["lib_ROI"] in lib_ROI_dict[ref_name].keys()][0]
 
 # setting organism from reference
 f = open(os.path.join(GLOBAL_REF_PATH,"reference_info","reference2.json"),)
