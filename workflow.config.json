@@ -84,10 +84,10 @@
         "conditions": {
           "relevance": {
             "operand": "equal",
-            "negation": false,
+            "negation": true,
             "values": {
-              "salmon_align": true,
-              "salmon_map": true
+              "salmon_align": false,
+              "salmon_map": false
             }
           }
         }
