@@ -60,7 +60,6 @@ config["organism"] = config["species_name"].split(" (")[0].lower().replace(" ","
 if len(config["species_name"].split(" (")) > 1:
     config["species"] = config["species_name"].split(" (")[1].replace(")","")
 
-
 ##### Config processing #####
 # Folders
 #
