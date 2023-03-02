@@ -1,12 +1,12 @@
 {
   "workflow_description": {
     "name":"count_feature_rna",
-    "version": 1.0,
+    "version": 1.2,
     "label":"Count feature",
     "type":"count_feature_rna",
     "inputs":[
       "mapped/*",
-      "*/{sample}*fastq.gz"
+      "cleaned_fastq/{sample}*fastq.gz"
     ],
     "outputs":[
       "qc_reports/*",
@@ -30,32 +30,30 @@
   "gui_params" : {
     "primary": {},
     "detailed": {
-      "feature_count": {
-        "label": "Feature count",
+      "featureCount_exon": {
+        "label": "FeatureCount - exon",
         "type": "bool",
         "default": true
       },
-      "count_over": {
-        "label": "Count over",
-        "type": "enum",
-        "default": "exon",
-        "list": {
-          "exon": "Exon",
-          "gene": "Gene",
-          "transcript": "Transcript",
-          "mRNA": "mRNA",
-          "three_prime_utr": "Three prime UTR",
-          "five_prime_utr": "Five prime UTR"
-        },
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "feature_count": true
-            }
-          }
-        }
+      "featureCount_gene": {
+        "label": "FeatureCount - gene",
+        "type": "bool",
+        "default": false
+      },
+      "featureCount_transcript": {
+        "label": "FeatureCount - transcript",
+        "type": "bool",
+        "default": false
+      },
+      "featureCount_3pUTR": {
+        "label": "FeatureCount - 3 prime UTR",
+        "type": "bool",
+        "default": false
+      },
+      "featureCount_5pUTR": {
+        "label": "FeatureCount - 5 prime UTR",
+        "type": "bool",
+        "default": false
       },
       "RSEM": {
         "label": "RSEM",
