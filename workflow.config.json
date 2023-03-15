@@ -44,7 +44,7 @@
             "operand": "equal",
             "negation": false,
             "values": {
-              "feature_count": true
+              "featureCount": true
             }
           }
         }
