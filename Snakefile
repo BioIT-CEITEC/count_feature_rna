@@ -21,20 +21,8 @@ if not "lib_ROI" in config:
 if not "strandness" in config:
     config["strandness"] = "unstr"
 
-if not "featureCount_exon" in config:
-    config["featureCount_exon"] = False
-
-if not "featureCount_gene" in config:
-    config["featureCount_gene"] = False
-
-if not "featureCount_transcript" in config:
-    config["featureCount_transcript"] = False
-
-if not "featureCount_3pUTR" in config:
-    config["featureCount_3pUTR"] = False
-
-if not "featureCount_5pUTR" in config:
-    config["featureCount_5pUTR"] = False
+if not "featureCount" in config:
+    config["featureCount"] = False
 
 if not "RSEM" in config:
     config["RSEM"] = False
@@ -47,7 +35,12 @@ if not "salmon_map" in config:
 
 if not "salmon_align" in config:
     config["salmon_map"] = False
-    
+
+## featureCount count_over option
+if not "count_over" in config:
+    config["count_over"] = "exon"
+count_over_list = config['count_over'].split(",")
+
 # ChIP-seq parameters processing
 #
 if not "effective_genome_size" in config:
@@ -91,6 +84,7 @@ wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
     read_pair_tag = "R1|R2|SE",
     pair_tags = "|".join(pair_tag),
+    count_over_list = "exon|gene|transcript|3pUTR|5pUTR"
 
 ##### Target rules #####
 

@@ -6,7 +6,7 @@ import subprocess
 from snakemake.shell import shell
 shell.executable("/bin/bash")
 log_filename = str(snakemake.log)
-
+summary_file = snakemake.output.feature_count+".summary"
 
 f = open(log_filename, 'a+')
 f.write("\n##\n## RULE: gene_counts_featureCounts \n##\n")
@@ -42,3 +42,8 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
+command = "sed -i 's|mapped/|mapped/" + snakemake.params.count_over + "_|' " + summary_file
+f = open(log_filename, 'at')
+f.write("## COMMAND: "+command+"\n")
+f.close()
+shell(command)

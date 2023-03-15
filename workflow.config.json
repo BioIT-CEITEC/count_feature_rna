@@ -30,30 +30,24 @@
   "gui_params" : {
     "primary": {},
     "detailed": {
-      "featureCount_exon": {
-        "label": "FeatureCount - exon",
+       "feature_count": {
+        "label": "FeatureCount",
         "type": "bool",
         "default": true
       },
-      "featureCount_gene": {
-        "label": "FeatureCount - gene",
-        "type": "bool",
-        "default": false
-      },
-      "featureCount_transcript": {
-        "label": "FeatureCount - transcript",
-        "type": "bool",
-        "default": false
-      },
-      "featureCount_3pUTR": {
-        "label": "FeatureCount - 3 prime UTR",
-        "type": "bool",
-        "default": false
-      },
-      "featureCount_5pUTR": {
-        "label": "FeatureCount - 5 prime UTR",
-        "type": "bool",
-        "default": false
+      "count_over": {
+        "label": "Count over (exon, gene, transcript, 3pUTR, 5pUTR)",
+        "type": "string",
+        "default": "exon",
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "feature_count": true
+            }
+          }
+        }
       },
       "RSEM": {
         "label": "RSEM",

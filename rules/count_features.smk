@@ -1,15 +1,7 @@
 def multiqc_report_input_files(wildcards):
     input = {}
-    if config["featureCount_exon"]:
-        input["featureCount_exon"] = expand("qc_reports/{sample}/featureCount_exon/{sample}.featureCount_exon.tsv", sample = sample_tab.sample_name)
-    if config["featureCount_gene"]:
-        input["featureCount_gene"] = expand("qc_reports/{sample}/featureCount_gene/{sample}.featureCount_gene.tsv",sample=sample_tab.sample_name)
-    if config["featureCount_transcript"]:
-        input["featureCount_transcript"] = expand("qc_reports/{sample}/featureCount_transcript/{sample}.featureCount_transcript.tsv",sample=sample_tab.sample_name)
-    if config["featureCount_3pUTR"]:
-        input["featureCount_3pUTR"] = expand("qc_reports/{sample}/featureCount_3pUTR/{sample}.featureCount_3pUTR.tsv",sample=sample_tab.sample_name)
-    if config["featureCount_5pUTR"]:
-        input["featureCount_5pUTR"] = expand("qc_reports/{sample}/featureCount_5pUTR/{sample}.featureCount_5pUTR.tsv",sample=sample_tab.sample_name)
+    if config["featureCount"]:
+        input["featureCount"] = expand("qc_reports/{sample}/featureCount_{count_over}/{sample}.featureCount_{count_over}.tsv", sample = sample_tab.sample_name, count_over = count_over_list)
     if config["RSEM"]:
         input["RSEM"] = expand("qc_reports/{sample}/RSEM/{sample}.genes.results", sample = sample_tab.sample_name)
     if config["salmon_align"]:
@@ -32,67 +24,15 @@ rule multiqc_report:
     conda: "../wrappers/count_features_multiqc/env.yaml"
     script: "../wrappers/count_features_multiqc/script.py"
 
-rule featureCount_exon:
+rule featureCount:
      input:  bam = "mapped/{sample}.bam",
              gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
-     output: feature_count = "qc_reports/{sample}/featureCount_exon/{sample}.featureCount_exon.tsv"
-     log:    "logs/{sample}/featureCount_exon.log"
+             count_over = "{count_over}",
+     output: feature_count = "qc_reports/{sample}/featureCount_{count_over}/{sample}.featureCount_exon.tsv"
+     log:    "logs/{sample}/featureCount_{count_over}.log"
      threads: 10
      resources:  mem = 10
-     params: count_over = "exon",
-             paired = paired,
-             strandness = config["strandness"],
-     conda:  "../wrappers/feature_count/env.yaml"
-     script: "../wrappers/feature_count/script.py"
-
-rule featureCount_gene:
-     input:  bam = "mapped/{sample}.bam",
-             gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
-     output: feature_count = "qc_reports/{sample}/featureCount_gene/{sample}.featureCount_gene.tsv"
-     log:    "logs/{sample}/featureCount_gene.log"
-     threads: 10
-     resources:  mem = 10
-     params: count_over = "gene",
-             paired = paired,
-             strandness = config["strandness"],
-     conda:  "../wrappers/feature_count/env.yaml"
-     script: "../wrappers/feature_count/script.py"
-
-rule featureCount_transcript:
-     input:  bam = "mapped/{sample}.bam",
-             gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
-     output: feature_count = "qc_reports/{sample}/featureCount_transcript/{sample}.featureCount_transcript.tsv"
-     log:    "logs/{sample}/featureCount_transcript.log"
-     threads: 10
-     resources:  mem = 10
-     params: count_over = "transcript",
-             paired = paired,
-             strandness = config["strandness"],
-     conda:  "../wrappers/feature_count/env.yaml"
-     script: "../wrappers/feature_count/script.py"
-
-rule featureCount_3pUTR:
-     input:  bam = "mapped/{sample}.bam",
-             gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
-     output: feature_count = "qc_reports/{sample}/featureCount_3pUTR/{sample}.featureCount_3pUTR.tsv"
-     log:    "logs/{sample}/featureCount_3pUTR.log"
-     threads: 10
-     resources:  mem = 10
-     params: count_over = "three_prime_utr",
-             paired = paired,
-             strandness = config["strandness"],
-     conda:  "../wrappers/feature_count/env.yaml"
-     script: "../wrappers/feature_count/script.py"
-
-rule featureCount_5pUTR:
-     input:  bam = "mapped/{sample}.bam",
-             gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
-     output: feature_count = "qc_reports/{sample}/featureCount_5pUTR/{sample}.featureCount_5pUTR.tsv"
-     log:    "logs/{sample}/featureCount_5pUTR.log"
-     threads: 10
-     resources:  mem = 10
-     params: count_over = "five_prime_utr",
-             paired = paired,
+     params: paired = paired,
              strandness = config["strandness"],
      conda:  "../wrappers/feature_count/env.yaml"
      script: "../wrappers/feature_count/script.py"
