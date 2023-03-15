@@ -39,6 +39,7 @@ if not "salmon_align" in config:
 ## featureCount count_over option
 if not "count_over" in config:
     config["count_over"] = "exon"
+
 count_over_list = config['count_over'].split(",")
 
 # ChIP-seq parameters processing

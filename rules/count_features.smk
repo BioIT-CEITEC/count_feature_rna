@@ -27,12 +27,12 @@ rule multiqc_report:
 rule featureCount:
      input:  bam = "mapped/{sample}.bam",
              gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
-             count_over = "{count_over}",
-     output: feature_count = "qc_reports/{sample}/featureCount_{count_over}/{sample}.featureCount_exon.tsv"
+     output: feature_count = "qc_reports/{sample}/featureCount_{count_over}/{sample}.featureCount_{count_over}.tsv"
      log:    "logs/{sample}/featureCount_{count_over}.log"
      threads: 10
      resources:  mem = 10
-     params: paired = paired,
+     params: count_over = "{count_over}",
+             paired = paired,
              strandness = config["strandness"],
      conda:  "../wrappers/feature_count/env.yaml"
      script: "../wrappers/feature_count/script.py"

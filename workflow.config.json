@@ -30,7 +30,7 @@
   "gui_params" : {
     "primary": {},
     "detailed": {
-       "feature_count": {
+       "featureCount": {
         "label": "FeatureCount",
         "type": "bool",
         "default": true
