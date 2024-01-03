@@ -26,7 +26,7 @@ rule multiqc_report:
 
 rule featureCount:
      input:  bam = "mapped/{sample}.bam",
-             gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
+             gtf = config["organism_gtf"], # defined in utilities
      output: feature_count = "qc_reports/{sample}/featureCount_{count_over}/{sample}.featureCount_{count_over}.tsv"
      log:    "logs/{sample}/featureCount_{count_over}.log"
      threads: 10
@@ -40,7 +40,7 @@ rule featureCount:
 rule RSEM:
     input:  bam = "mapped/{sample}.bam",
             transcriptome = "mapped/transcriptome/{sample}.transcriptome.bam",
-            rsem_index = expand("{ref_dir}/index/RSEM/{ref}.idx.fa",ref_dir=reference_directory,ref=config["reference"])[0],
+            rsem_index = config["organism_rsem"], # defined in utilities
     output: rsem_out = "qc_reports/{sample}/RSEM/{sample}.genes.results"
     log:    "logs/{sample}/RSEM.log"
     threads: 5
@@ -63,7 +63,7 @@ def salmon_kallisto_input(wildcards):
 
 rule Salmon_align:
     input:  bam = "mapped/transcriptome/{sample}.transcriptome.bam",
-            cds = expand("{ref_dir}/seq/{ref}.cds.fa",ref_dir=reference_directory,ref=config["reference"])[0],
+            cds = config["organism_cds_fasta"], # defined in utilities
     output: sf = "qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.sf",
             tsv= "qc_reports/{sample}/salmon_aln/{sample}_aln.tsv",
     log:    "logs/{sample}/salmon_aln.log"
@@ -78,7 +78,7 @@ rule Salmon_align:
 
 rule Salmon_map:
     input:  unpack(salmon_kallisto_input),
-            index = expand("{ref_dir}/index/Salmon",ref_dir=reference_directory,ref=config["reference"])[0],
+            index = config["organism_salmon"], # defined in utilities
     output: sf = "qc_reports/{sample}/salmon_map/{sample}.salmon_map.sf",
             tsv = "qc_reports/{sample}/salmon_map/{sample}_map.tsv",
     log:    "logs/{sample}/salmon_map.log"
@@ -96,7 +96,7 @@ rule Salmon_map:
 
 rule Kallisto:
     input:  unpack(salmon_kallisto_input),
-            index = expand("{ref_dir}/index/Kallisto",ref_dir=reference_directory,ref=config["reference"])
+            index = config["organism_kallisto"], # defined in utilities
     output: h5 = "qc_reports/{sample}/kallisto/{sample}.kallisto.h5",
             tsv = "qc_reports/{sample}/kallisto/{sample}.kallisto.tsv"
     log:    "logs/{sample}/kallisto.log"
