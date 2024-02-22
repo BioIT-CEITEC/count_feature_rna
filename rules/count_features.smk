@@ -52,7 +52,7 @@ rule RSEM:
 
 
 def salmon_kallisto_input(wildcards):
-    preprocessed = "cleaned_fastq"
+    preprocessed = "processed_fastq"
     input = {}
     if not config["is_paired"]:
         input['r1'] = os.path.join(preprocessed,"{sample}.fastq.gz")

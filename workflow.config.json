@@ -6,7 +6,7 @@
     "type":"count_feature_rna",
     "inputs":[
       "mapped/*",
-      "cleaned_fastq/{sample}*fastq.gz"
+      "processed_fastq/{sample}*fastq.gz"
     ],
     "outputs":[
       "qc_reports/*",
