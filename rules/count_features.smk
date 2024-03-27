@@ -65,7 +65,7 @@ rule Salmon_align:
     input:  bam = "mapped/transcriptome/{sample}.transcriptome.bam",
             cds = expand("{ref_dir}/seq/{ref}.cds.fa",ref_dir=reference_directory,ref=config["reference"])[0],
     output: sf = "qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.sf",
-            tsv= "qc_reports/{sample}/salmon_aln/{sample}_aln.tsv",
+            tsv= "qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.tsv",
     log:    "logs/{sample}/salmon_aln.log"
     threads: 5
     resources:  mem = 10
@@ -80,7 +80,7 @@ rule Salmon_map:
     input:  unpack(salmon_kallisto_input),
             index = expand("{ref_dir}/index/Salmon",ref_dir=reference_directory,ref=config["reference"])[0],
     output: sf = "qc_reports/{sample}/salmon_map/{sample}.salmon_map.sf",
-            tsv = "qc_reports/{sample}/salmon_map/{sample}_map.tsv",
+            tsv = "qc_reports/{sample}/salmon_map/{sample}.salmon_map.tsv",
     log:    "logs/{sample}/salmon_map.log"
     threads: 40
     resources:  mem = 34
