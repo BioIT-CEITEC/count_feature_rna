@@ -6,10 +6,10 @@ def multiqc_report_input_files(wildcards):
         input["RSEM"] = expand("qc_reports/{sample}/RSEM/{sample}.genes.results", sample = sample_tab.sample_name)
     if config["salmon_align"]:
         input["salmon_align"] = expand("qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.sf", sample = sample_tab.sample_name)
-        input["salmon_align_tab"] = expand("qc_reports/{sample}/salmon_aln/{sample}_aln.tsv", sample = sample_tab.sample_name)
+        input["salmon_align_tab"] = expand("qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.tsv", sample = sample_tab.sample_name)
     if config["salmon_map"]:
         input["salmon_map"] = expand("qc_reports/{sample}/salmon_map/{sample}.salmon_map.sf", sample = sample_tab.sample_name)
-        input["salmon_map_tab"] = expand("qc_reports/{sample}/salmon_map/{sample}_map.tsv", sample = sample_tab.sample_name)
+        input["salmon_map_tab"] = expand("qc_reports/{sample}/salmon_map/{sample}.salmon_map.tsv", sample = sample_tab.sample_name)
     if config["kallisto"]:
         input["kallisto_h5"] = expand("qc_reports/{sample}/kallisto/{sample}.kallisto.h5", sample = sample_tab.sample_name)
         input["kallisto_tsv"] = expand("qc_reports/{sample}/kallisto/{sample}.kallisto.tsv", sample = sample_tab.sample_name)
@@ -65,7 +65,7 @@ rule Salmon_align:
     input:  bam = "mapped/transcriptome/{sample}.transcriptome.bam",
             cds = config["organism_cds_fasta"], # defined in utilities
     output: sf = "qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.sf",
-            tsv= "qc_reports/{sample}/salmon_aln/{sample}_aln.tsv",
+            tsv= "qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.tsv",
     log:    "logs/{sample}/salmon_aln.log"
     threads: 5
     resources:  mem = 10
@@ -80,7 +80,7 @@ rule Salmon_map:
     input:  unpack(salmon_kallisto_input),
             index = config["organism_salmon"], # defined in utilities
     output: sf = "qc_reports/{sample}/salmon_map/{sample}.salmon_map.sf",
-            tsv = "qc_reports/{sample}/salmon_map/{sample}_map.tsv",
+            tsv = "qc_reports/{sample}/salmon_map/{sample}.salmon_map.tsv",
     log:    "logs/{sample}/salmon_map.log"
     threads: 40
     resources:  mem = 34

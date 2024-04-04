@@ -8,9 +8,22 @@
       "mapped/*",
       "processed_fastq/{sample}*fastq.gz"
     ],
-    "outputs":[
-      "qc_reports/*",
-      "logs/*"
+    "outputs":["qc_reports/all_samples/multiqc_features.html"],
+    "outputs_optional":[
+      "qc_reports/{sample}/RSEM/{sample}.*.*",
+      "qc_reports/{sample}/featureCount_exon/{sample}.*.*",
+      "qc_reports/{sample}/featureCount_gene/{sample}.*.*",
+      "qc_reports/{sample}/featureCount_transcript/{sample}.*.*",
+      "qc_reports/{sample}/featureCount_3pUTR/{sample}.*.*",
+      "qc_reports/{sample}/featureCount_5pUTR/{sample}.*.*",
+      "qc_reports/{sample}/kallisto/{sample}.*.*",
+      "qc_reports/{sample}/salmon_map/{sample}.*.*",
+      "qc_reports/{sample}/salmon_aln/{sample}.*.*",
+      "logs/{sample}/featureCount_*.log",
+      "logs/{sample}/RSEM.log",
+      "logs/{sample}/salmon_aln.log",
+      "logs/{sample}/salmon_map.log",
+      "logs/{sample}/kallisto.log"
     ],
     "report_index": "qc_reports/all_samples/multiqc_features.html",
     "reports":[
