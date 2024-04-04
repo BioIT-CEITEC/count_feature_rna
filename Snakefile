@@ -34,7 +34,7 @@ if not "salmon_map" in config:
     config["salmon_map"] = False
 
 if not "salmon_align" in config:
-    config["salmon_map"] = False
+    config["salmon_align"] = False
 
 ## featureCount count_over option
 if not "count_over" in config:

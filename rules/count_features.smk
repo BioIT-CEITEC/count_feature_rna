@@ -6,10 +6,10 @@ def multiqc_report_input_files(wildcards):
         input["RSEM"] = expand("qc_reports/{sample}/RSEM/{sample}.genes.results", sample = sample_tab.sample_name)
     if config["salmon_align"]:
         input["salmon_align"] = expand("qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.sf", sample = sample_tab.sample_name)
-        input["salmon_align_tab"] = expand("qc_reports/{sample}/salmon_aln/{sample}_aln.tsv", sample = sample_tab.sample_name)
+        input["salmon_align_tab"] = expand("qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.tsv", sample = sample_tab.sample_name)
     if config["salmon_map"]:
         input["salmon_map"] = expand("qc_reports/{sample}/salmon_map/{sample}.salmon_map.sf", sample = sample_tab.sample_name)
-        input["salmon_map_tab"] = expand("qc_reports/{sample}/salmon_map/{sample}_map.tsv", sample = sample_tab.sample_name)
+        input["salmon_map_tab"] = expand("qc_reports/{sample}/salmon_map/{sample}.salmon_map.tsv", sample = sample_tab.sample_name)
     if config["kallisto"]:
         input["kallisto_h5"] = expand("qc_reports/{sample}/kallisto/{sample}.kallisto.h5", sample = sample_tab.sample_name)
         input["kallisto_tsv"] = expand("qc_reports/{sample}/kallisto/{sample}.kallisto.tsv", sample = sample_tab.sample_name)
