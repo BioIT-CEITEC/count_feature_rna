@@ -5,7 +5,8 @@
     "label":"Count feature",
     "type":"count_feature_rna",
     "inputs":[
-      "mapped/*",
+      "mapped/{sample}.bam*",
+      "mapped/transcriptome/{sample}.transcriptome.bam*",
       "processed_fastq/{sample}*fastq.gz"
     ],
     "outputs":["qc_reports/all_samples/multiqc_features.html"],
