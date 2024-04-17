@@ -63,7 +63,7 @@ def salmon_kallisto_input(wildcards):
 
 rule Salmon_align:
     input:  bam = "mapped/transcriptome/{sample}.transcriptome.bam",
-            cds = config["organism_cds_fasta"], # defined in utilities
+            cds = config["organism_cdna_fasta"], # defined in utilities
     output: sf = "qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.sf",
             tsv= "qc_reports/{sample}/salmon_aln/{sample}.salmon_aln.tsv",
     log:    "logs/{sample}/salmon_aln.log"
@@ -78,7 +78,7 @@ rule Salmon_align:
 
 rule Salmon_map:
     input:  unpack(salmon_kallisto_input),
-            index = config["organism_salmon"], # defined in utilities
+            index = config["organism_salmon_gentrome"], # defined in utilities
     output: sf = "qc_reports/{sample}/salmon_map/{sample}.salmon_map.sf",
             tsv = "qc_reports/{sample}/salmon_map/{sample}.salmon_map.tsv",
     log:    "logs/{sample}/salmon_map.log"
@@ -88,6 +88,7 @@ rule Salmon_map:
             lib_type = config["lib_type"],
             sample_name = "{sample}_map",
             info = "qc_reports/{sample}/salmon_map/aux_info/meta_info.json",
+            index = config["organism_salmon"]
             gcbias = config["gcbias"],
             numGibbsSamples = config["numGibbsSamples"],
             paired = paired,

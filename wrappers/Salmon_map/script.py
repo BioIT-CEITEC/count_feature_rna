@@ -28,7 +28,7 @@ else:
     salmon_gcbias = ""
 
 command = "salmon quant -p " + str(snakemake.threads) + \
-               " -i " + str(snakemake.input.index) + \
+               " -i " + str(snakemake.params.index) + \
                " -l " + snakemake.params.lib_type + input_fastqs + \
                " -o " + snakemake.params.prefix + \
                " --numGibbsSamples " + snakemake.params.numGibbsSamples + salmon_gcbias + \
