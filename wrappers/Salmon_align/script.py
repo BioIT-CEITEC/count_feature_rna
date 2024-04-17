@@ -21,12 +21,17 @@ command = "salmon quant -p " + str(snakemake.threads) + \
                " -t " + snakemake.input.cds + \
                " -l " + snakemake.params.lib_type + \
                " -a " + snakemake.input.bam + \
-               " -o " + snakemake.params.prefix + \
-               " >> "+log_filename+" 2>&1 "
+               " -o " + snakemake.params.prefix
+
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
+shell(command)
 
+command = "cat " + snakemake.params.prefix + "/logs/salmon_quant.log >> " +log_filename
+f = open(log_filename, 'at')
+f.write("## COMMAND: "+command+"\n")
+f.close()
 shell(command)
 
 command = "mv " + snakemake.params.prefix + "/quant.sf " + snakemake.output.sf + " >> "+log_filename+" 2>&1 "
