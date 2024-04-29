@@ -17,12 +17,6 @@ module BR:
 
 use rule * from BR as other_*
 
-##### BioRoot utilities - prepare reference #####
-module PR:
-    snakefile: gitlab("bioroots/bioroots_utilities", path="prepare_reference.smk",branch="master")
-    config: config
-
-use rule * from PR as other_*
 
 ##### Config processing #####
 
@@ -100,3 +94,10 @@ rule all:
 ##### Modules #####
 
 include: "rules/count_features.smk"
+
+##### BioRoot utilities - prepare reference #####
+module PR:
+    snakefile: gitlab("bioroots/bioroots_utilities", path="prepare_reference.smk",branch="master")
+    config: config
+
+use rule * from PR as other_*
