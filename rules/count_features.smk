@@ -88,7 +88,7 @@ rule Salmon_map:
             lib_type = config["lib_type"],
             sample_name = "{sample}_map",
             info = "qc_reports/{sample}/salmon_map/aux_info/meta_info.json",
-            index = config["organism_salmon"]
+            index = config["organism_salmon"],
             gcbias = config["gcbias"],
             numGibbsSamples = config["numGibbsSamples"],
             paired = paired,
