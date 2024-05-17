@@ -2,6 +2,8 @@ def multiqc_report_input_files(wildcards):
     input = {}
     if config["featureCount"]:
         input["featureCount"] = expand("qc_reports/{sample}/featureCount_{count_over}/{sample}.featureCount_{count_over}.tsv", sample = sample_tab.sample_name, count_over = count_over_list)
+    if config["HTSeqCount"]:
+        input["HTSeqCount"] = expand("qc_reports/{sample}/HTSeqCount_{count_over}/{sample}.HTSeqCount_{count_over}.tsv", sample = sample_tab.sample_name, count_over = count_over_list)
     if config["RSEM"]:
         input["RSEM"] = expand("qc_reports/{sample}/RSEM/{sample}.genes.results", sample = sample_tab.sample_name)
     if config["salmon_align"]:
@@ -36,6 +38,21 @@ rule featureCount:
              strandness = config["strandness"],
      conda:  "../wrappers/feature_count/env.yaml"
      script: "../wrappers/feature_count/script.py"
+
+rule HTSeqCount:
+     input:  bam = "mapped/{sample}.bam",
+             gtf = config["organism_gtf"], # defined in utilities
+     output: htseq_count = "qc_reports/{sample}/HTSeqCount_{count_over}/{sample}.HTSeqCount_{count_over}.tsv"
+     log:    "logs/{sample}/HTSeqCount_{count_over}.log"
+     threads: 10
+     resources:  mem = 10
+     params: count_over = "{count_over}",
+             paired = paired,
+             strandness = config["strandness"],
+             mode = config["htseq_mode"],
+             nonunique = config["htseq_nonunique"],
+     conda:  "../wrappers/htseq_count/env.yaml"
+     script: "../wrappers/htseq_count/script.py"
 
 rule RSEM:
     input:  bam = "mapped/{sample}.bam",

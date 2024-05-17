@@ -6,7 +6,7 @@ import subprocess
 from snakemake.shell import shell
 shell.executable("/bin/bash")
 log_filename = str(snakemake.log)
-summary_file = snakemake.output.feature_count+".summary"
+summary_file = snakemake.output.htseq_count+".summary"
 
 f = open(log_filename, 'a+')
 f.write("\n##\n## RULE: gene_counts_HTSeqCounts \n##\n")
@@ -35,7 +35,7 @@ elif snakemake.params.strandness == "rev":
 else:
     extra_flags_feature += " -s no"
 
-command = "htseq-count -t "+snakemake.params.count_over+" -i gene_id "+extra_flags_feature+" -m "+snakemake.params.mode+" --nonunique="+snakemake.params.nonunique+" -c "+snakemake.output.tsv+" "+snakemake.input.bam+" "+snakemake.input.gtf+" >> "+log_filename+" 2>&1 "
+command = "htseq-count -t "+snakemake.params.count_over+" -i gene_id "+extra_flags_feature+" -m "+snakemake.params.mode+" --nonunique="+snakemake.params.nonunique+" -c "+snakemake.output.htseq_count+" "+snakemake.input.bam+" "+snakemake.input.gtf+" >> "+log_filename+" 2>&1 "
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
