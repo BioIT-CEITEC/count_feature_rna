@@ -81,7 +81,16 @@
         "list": {
           "union": "union",
           "intersection-strict": "intersection-strict",
-          "intersection-nonempty": "intersection-nonempty"}
+          "intersection-nonempty": "intersection-nonempty"},
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "HTSeqCount": true
+            }
+          }
+        }
       },
       "htseq_nonunique": {
         "label": "HTSeq nonunique",
@@ -91,7 +100,16 @@
           "none": "none",
           "all": "all",
           "fraction": "fraction",
-          "random": "random"}
+          "random": "random"},
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "HTSeqCount": true
+            }
+          }
+        }
       },
       "RSEM": {
         "label": "RSEM",
