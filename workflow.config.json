@@ -69,8 +69,37 @@
           }
         }
       },
+      "HTSeqCount": {
+        "label": "HTSeqCount",
+        "type": "bool",
+        "default": false
+      },
+      "htseq_mode": {
+        "label": "HTSeq mode",
+        "type": "enum",
+        "default": "union",
+        "list": {
+          "union": "union",
+          "intersection-strict": "intersection-strict",
+          "intersection-nonempty": "intersection-nonempty"}
+      },
+      "htseq_nonunique": {
+        "label": "HTSeq nonunique",
+        "type": "enum",
+        "default": "none",
+        "list": {
+          "none": "none",
+          "all": "all",
+          "fraction": "fraction",
+          "random": "random"}
+      },
       "RSEM": {
         "label": "RSEM",
+        "type": "bool",
+        "default": false
+      },
+      "kallisto": {
+        "label": "Kallisto",
         "type": "bool",
         "default": false
       },
@@ -81,16 +110,6 @@
       },
       "salmon_map": {
         "label": "Salmon quantification fastq-based",
-        "type": "bool",
-        "default": false
-      },
-      "kallisto": {
-        "label": "Kallisto",
-        "type": "bool",
-        "default": false
-      },
-      "HTSeqCount": {
-        "label": "HTSeqCount",
         "type": "bool",
         "default": false
       },
