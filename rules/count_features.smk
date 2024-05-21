@@ -45,12 +45,13 @@ rule HTSeqCount:
      output: htseq_count = "qc_reports/{sample}/HTSeqCount_{count_over}/{sample}.HTSeqCount_{count_over}.tsv"
      log:    "logs/{sample}/HTSeqCount_{count_over}.log"
      threads: 10
-     resources:  mem = 10
+     resources:  mem = 30
      params: count_over = "{count_over}",
              paired = paired,
              strandness = config["strandness"],
              mode = config["htseq_mode"],
              nonunique = config["htseq_nonunique"],
+             temp_bam = "mapped/{sample}_sorted.bam",
      conda:  "../wrappers/htseq_count/env.yaml"
      script: "../wrappers/htseq_count/script.py"
 
