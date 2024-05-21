@@ -17,7 +17,7 @@ f = open(log_filename, 'at')
 f.write("## CONDA: "+version+"\n")
 f.close()
 
-command = "mkdir -p "+os.path.dirname(snakemake.output.feature_count)+" >> "+log_filename+" 2>&1"
+command = "mkdir -p "+os.path.dirname(snakemake.output.htseq_count)+" >> "+log_filename+" 2>&1"
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
