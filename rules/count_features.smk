@@ -51,7 +51,7 @@ rule HTSeqCount:
              strandness = config["strandness"],
              mode = config["htseq_mode"],
              nonunique = config["htseq_nonunique"],
-             temp_bam = "mapped/{sample}_sorted.bam",
+             temp_bam = "mapped/{sample}_sorted_{count_over}.bam",
      conda:  "../wrappers/htseq_count/env.yaml"
      script: "../wrappers/htseq_count/script.py"
 
