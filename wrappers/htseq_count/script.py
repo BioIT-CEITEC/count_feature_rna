@@ -25,7 +25,7 @@ f.close()
 shell(command)
 
 if snakemake.params.paired == "PE":
-    command = "samtools view -@ 10 -n "+bam_file+" -o "+snakemake.params.temp_bam
+    command = "samtools sort -@ 10 -n "+bam_file+" -o "+snakemake.params.temp_bam
     f = open(log_filename, 'at')
     f.write("## COMMAND: " + command + "\n")
     f.close()
