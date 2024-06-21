@@ -41,6 +41,9 @@ if not "strandness" in config:
 if not "featureCount" in config:
     config["featureCount"] = False
 
+if not "HTSeqCount" in config:
+    config["HTSeqCount"] = False
+
 if not "RSEM" in config:
     config["RSEM"] = False
 
