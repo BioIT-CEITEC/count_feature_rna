@@ -43,7 +43,9 @@
   ],
   "requested_params": [
     "is_paired",
-    "reference",
+    "organism",
+    "assembly",
+    "release",
     "trim_adapters",
     "strandness"
   ],
