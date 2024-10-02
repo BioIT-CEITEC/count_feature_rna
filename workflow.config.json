@@ -4,6 +4,10 @@
     "version": 2.0,
     "label":"Count feature",
     "type":"count_feature_rna",
+    "run_parameters": {
+      "cpu": 35,
+      "memory": 65
+    },
     "inputs":[
       "mapped/{sample}.bam*",
       "mapped/transcriptome/{sample}.transcriptome.bam*",
