@@ -19,6 +19,7 @@
     ],
     "outputs_optional":[
       "qc_reports/{sample}/RSEM/{sample}.*.*",
+      "qc_reports/{sample}/RSEM/{sample}.stat/*",
       "qc_reports/{sample}/featureCount_exon/{sample}.*.*",
       "qc_reports/{sample}/featureCount_gene/{sample}.*.*",
       "qc_reports/{sample}/featureCount_transcript/{sample}.*.*",
