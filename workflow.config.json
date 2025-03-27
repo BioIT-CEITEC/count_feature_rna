@@ -13,7 +13,10 @@
       "mapped/transcriptome/{sample}.transcriptome.bam*",
       "processed_fastq/{sample}*fastq.gz"
     ],
-    "outputs":["qc_reports/all_samples/multiqc_features.html"],
+    "outputs":[
+      "qc_reports/all_samples/multiqc_features.html",
+      "qc_reports/all_samples/multiqc_features_data/*"
+    ],
     "outputs_optional":[
       "qc_reports/{sample}/RSEM/{sample}.*.*",
       "qc_reports/{sample}/featureCount_exon/{sample}.*.*",
