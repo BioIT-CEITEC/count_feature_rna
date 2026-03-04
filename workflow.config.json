@@ -81,13 +81,14 @@
       },
       "HTSeqCount": {
         "label": "HTSeqCount",
+        "info": "Select mode and non-unique according to: https://htseq.readthedocs.io/en/master/htseqcount.html",
         "type": "bool",
         "default": false
       },
       "htseq_mode": {
         "label": "HTSeq mode",
         "type": "enum",
-        "default": "union",
+        "default": "intersection-nonempty",
         "list": {
           "union": "union",
           "intersection-strict": "intersection-strict",
@@ -105,7 +106,7 @@
       "htseq_nonunique": {
         "label": "HTSeq nonunique",
         "type": "enum",
-        "default": "none",
+        "default": "fraction",
         "list": {
           "none": "none",
           "all": "all",
@@ -187,4 +188,3 @@
     }
   }
 }
-
