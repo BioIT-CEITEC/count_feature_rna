@@ -66,7 +66,7 @@
         "default": true
       },
       "count_over": {
-        "label": "Count over (exon, gene, transcript, three_prime_UTR, five_prime_UTR)",
+        "label": "Count over (exon, gene, transcript, three_prime_utr, five_prime_utr)",
         "type": "string",
         "default": "exon",
         "conditions": {
