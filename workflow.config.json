@@ -67,7 +67,7 @@
       },
       "count_over": {
         "label": "Count over",
-        "info": "Comma-separated list of features from: exon,gene,transcript,three_prime_utr,five_prime_utr"
+        "info": "Comma-separated list of features from: exon,gene,transcript,three_prime_utr,five_prime_utr",
         "type": "string",
         "default": "exon",
         "conditions": {
