@@ -42,7 +42,8 @@
     ],
     "report_index": "qc_reports/all_samples/multiqc_features.html",
     "reports":[
-      "qc_reports/*"
+      "qc_reports/*",
+      "logs/*"
     ]
   },
   "general_params": [
@@ -66,7 +67,8 @@
         "default": true
       },
       "count_over": {
-        "label": "Count over (exon, gene, transcript, three_prime_UTR, five_prime_UTR)",
+        "label": "Count over",
+        "info": "Comma-separated list of features from: exon,gene,transcript,three_prime_utr,five_prime_utr",
         "type": "string",
         "default": "exon",
         "conditions": {
@@ -81,13 +83,14 @@
       },
       "HTSeqCount": {
         "label": "HTSeqCount",
+        "info": "Select mode and non-unique according to: https://htseq.readthedocs.io/en/master/htseqcount.html",
         "type": "bool",
         "default": false
       },
       "htseq_mode": {
         "label": "HTSeq mode",
         "type": "enum",
-        "default": "union",
+        "default": "intersection-nonempty",
         "list": {
           "union": "union",
           "intersection-strict": "intersection-strict",
@@ -105,7 +108,7 @@
       "htseq_nonunique": {
         "label": "HTSeq nonunique",
         "type": "enum",
-        "default": "none",
+        "default": "fraction",
         "list": {
           "none": "none",
           "all": "all",

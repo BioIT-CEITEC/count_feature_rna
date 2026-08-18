@@ -87,7 +87,7 @@ wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
     read_pair_tag = "R1|R2|SE",
     pair_tags = "|".join(pair_tag),
-    count_over_list = "exon|gene|transcript|three_prime_UTR|five_prime_UTR"
+    count_over_list = "exon|gene|transcript|three_prime_utr|five_prime_utr"
 
 ##### Target rules #####
 
