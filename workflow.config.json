@@ -1,7 +1,7 @@
 {
   "workflow_description": {
     "name":"count_feature_rna",
-    "version": 2.0,
+    "version": 2.1,
     "label":"Count feature",
     "type":"count_feature_rna",
     "run_parameters": {
@@ -55,6 +55,9 @@
     "organism",
     "assembly",
     "release",
+    "species_name",
+    "species",
+    "ref_KEGG",
     "trim_adapters",
     "strandness"
   ],
